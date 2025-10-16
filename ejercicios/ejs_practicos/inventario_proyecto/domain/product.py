@@ -11,7 +11,7 @@ class Product:
     _price: float 
     _weight: float
     _stock: int
-    _id: int = field(default_factory=lambda:randint(0, 1000))           # Al usar dataclases, los campos sin valores por defecto tienen que ir los primeros
+    _id: int = field(default_factory = lambda:randint(0, 500))           # Al usar dataclases, los campos sin valores por defecto tienen que ir los primeros
                                                                         # Sino, no deja instanciar correctamente
     
     @property
@@ -68,6 +68,10 @@ class Product:
     def stock(self):
         self._stock = None
 
+    @property                           # ID
+    def id(self):
+        return self._id
+
     def add_stock(self, amount:int):
         if amount <= 0:
             raise ValueError("The amount must be at least 1")
@@ -87,12 +91,7 @@ class Product:
             raise ValueError("There is no stock avaible")
         self._stock -= quantity
         print(f"{quantity} products has been sold")
+
+    def __repr__(self):
+        return (f"Product ID: {self._id}, Name: {self._name}, Price: {self._price}, Stock: {self._stock}")
         
-
-
-   
-
-    
-
-producto = Product("Gorra", 12, 0.2, 24)
-print(producto)
