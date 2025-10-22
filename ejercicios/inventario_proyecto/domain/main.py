@@ -6,16 +6,14 @@ from fabrica import CleaningProductFactory, ClothingProductFactory
 clothing_products = ClothingProductFactory()
 cleaning_products = CleaningProductFactory()
 
-Hat = clothing_products.create_product()
-print(Hat.get_category())
-print(Hat)
-Hat.name = "Gorro"
-Hat.price = 10
-Hat.weight = 0.3
-Hat.add_stock(25)
-print(Hat)
-
-
+Hats = clothing_products.create_product("Gorro", 10, 0.3, 25)
+print(Hats)
+Hats.add_stock(20)
+print(Hats)
+Hats.sell(12)
+print(Hats)
+Hats.sell(34)
+print(Hats)
 
 
 
