@@ -1,13 +1,19 @@
 from product import *
 from inventory import Inventory
 from store import Store
-from fabrica import *
+from fabrica import CleaningProductFactory, ClothingProductFactory
 
-clothing_product_factory = ClothingProductFactory()
-cleaning_product_factory = CleaningProductFactory()
+clothing_products = ClothingProductFactory()
+cleaning_products = CleaningProductFactory()
 
-producto1 = cleaning_product_factory.create_product()
-print(producto1)
+Hat = clothing_products.create_product()
+print(Hat.get_category())
+print(Hat)
+Hat.name = "Gorro"
+Hat.price = 10
+Hat.weight = 0.3
+Hat.add_stock(25)
+print(Hat)
 
 
 

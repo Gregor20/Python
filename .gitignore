@@ -1,0 +1,5 @@
+# Archivos de logs en cualquier carpeta
+*.log
+
+# Carpeta de cache de Python
+__pycache__/
