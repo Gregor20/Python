@@ -1,5 +1,5 @@
 from inventory import Inventory
-from product import Product
+from products import Product
 
 class Store:
     def __init__(self):

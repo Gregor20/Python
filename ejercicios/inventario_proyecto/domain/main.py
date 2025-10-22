@@ -1,7 +1,7 @@
-from product import *
+from products import *
 from inventory import Inventory
 from store import Store
-from fabrica import CleaningProductFactory, ClothingProductFactory
+from factories import CleaningProductFactory, ClothingProductFactory
 
 clothing_products = ClothingProductFactory()
 cleaning_products = CleaningProductFactory()
