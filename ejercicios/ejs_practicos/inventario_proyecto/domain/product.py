@@ -1,12 +1,13 @@
 from dataclasses import dataclass, field
 from random import randint
+from abc import ABC, abstractmethod
 
 # Regla general (pista):
 # Property → atributos que quieres exponer de manera controlada (price, weight, etc.)
 # Función → operaciones que modifican el estado del objeto o representan una acción del negocio (add_stock, sell, restock).
 
 @dataclass
-class Product:
+class Product(ABC):
     _name: str
     _price: float 
     _weight: float
@@ -60,7 +61,7 @@ class Product:
     
     @stock.setter
     def stock(self, new_stock:int):
-        if new_stock <= 0:
+        if new_stock < 0:
             raise ValueError("No debe haber stock negativo")
         self._stock = new_stock
 
@@ -90,8 +91,19 @@ class Product:
         if quantity > self._stock:
             raise ValueError("There is no stock avaible")
         self._stock -= quantity
-        print(f"{quantity} products has been sold")
+        print(f"{quantity} products has been sold of {self.name}")
 
     def __repr__(self):
         return (f"Product ID: {self._id}, Name: {self._name}, Price: {self._price}, Stock: {self._stock}")
         
+    @abstractmethod
+    def get_category(self):
+        pass
+
+class CleaningProduct(Product):
+    def get_category(self):
+        return "Cleaning"
+    
+class ClothingProduct(Product):
+    def get_category(self):
+        return "Clothing"
