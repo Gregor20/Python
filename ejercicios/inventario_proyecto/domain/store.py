@@ -6,6 +6,12 @@ class Store:
         self.inventory = Inventory()
         self._sales_total = 0
 
+    def add_product(self, new_product:Product):
+        if new_product in self.inventory.product_collection:
+            self.restock_product(new_product.id, new_product.stock)
+        else:
+            self.inventory.add_product(new_product)
+
     def restock_product(self, product_id, quantity):
         try:
             product = self.inventory.get_product(product_id)
@@ -25,6 +31,5 @@ class Store:
         except ValueError as e:                                                 # stock insuficiente
             print(f"Cannot sell {quantity} units: {e}")
 
-        
-    def show_inventory(self):
-        print(self.inventory.list_products())
+    def __repr__(self):
+        return self.inventory

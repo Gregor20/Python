@@ -27,4 +27,4 @@ class Inventory:
         return self.product_collection
     
     def __repr__(self):
-        return(f"All the products in the inventory: {[p.name for p in self.product_collection]}")
+        return(f"All the products in the inventory:{[(p.name, p.stock) for p in self.product_collection]}")
