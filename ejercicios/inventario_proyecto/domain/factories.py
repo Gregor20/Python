@@ -11,5 +11,5 @@ class CleaningProductFactory(Factory):
         return CleaningProduct(name, price, weight, stock)
     
 class ClothingProductFactory(Factory):
-    def create_product(self, name, price, weight, stock):
-        return ClothingProduct(name, price, weight, stock)
+    def create_product(self, name, price, weight, stock, size):
+        return ClothingProduct(name, price, weight, stock, size)

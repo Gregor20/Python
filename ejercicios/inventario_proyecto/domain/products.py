@@ -12,8 +12,10 @@ class Product(ABC):
     _price: float 
     _weight: float
     _stock: int
-    _id: int = field(default_factory = lambda:randint(0, 500))           # Al usar dataclases, los campos sin valores por defecto tienen que ir los primeros
-                                                                        # Sino, no deja instanciar correctamente
+    _id: int = field(default_factory = lambda:randint(0, 500), init=False)
+
+    # Al usar dataclases, los campos sin valores por defecto tienen que ir los primeros. Sino no deja instanciar correctamente
+                                                                        
     
     @property
     def name(self):                     # NOMBRE
@@ -91,7 +93,9 @@ class Product(ABC):
         if quantity > self._stock:
             raise ValueError("There is no stock avaible")
         self._stock -= quantity
-        print(f"{quantity} products has been sold of {self.name}")
+
+        verb = "has" if quantity == 1 else "have"
+        print(f"{quantity} pcs of {self.name} {verb} been sold")
 
     def __repr__(self):
         return (f"Product ID: {self._id}, Name: {self._name}, Price: {self._price}, Stock: {self._stock}")
@@ -103,7 +107,38 @@ class Product(ABC):
 class CleaningProduct(Product):
     def get_category(self):
         return "Cleaning"
-    
+
+@dataclass  
 class ClothingProduct(Product):
+    _size: str
+    _avaible_sizes: list = field(default_factory=lambda: ["XS", "S", "M", "L", "XL", "XXL"], init=False)
+
+    # field() se usa en dataclasses para configurar atributos especiales.
+    # - default_factory: permite usar valores mutables (listas, diccionarios, etc.) sin compartirlos entre instancias.
+    # - init=False: excluye el atributo del constructor (__init__).
+    # - repr, compare, metadata, etc. permiten controlar cómo el atributo se muestra o compara.
+
+    @property
+    def size(self):
+        return self._size
+
+    @size.setter
+    def size(self, new_size:str):
+        good_new_size = new_size.upper().strip()            # strip() elimina espacios en blanco (u otros caracteres) al inicio y al final de la cadena.
+        if good_new_size not in self._avaible_sizes:        
+            raise ValueError("This size does not exist")
+        else:
+            self._size = good_new_size
+
+
+    def __repr__(self):
+        return super().__repr__() + f", Size: {self.size}"
+    
+    def __post_init__(self):
+        self.size = self._size      # llama al setter para validar
+
+    # __post_init__ es el lugar para “arreglar” o validar atributos que necesitan lógica extra.
+    # Solo incluyes en él los atributos que lo requieren; no hay obligación de procesar todo.
+
     def get_category(self):
         return "Clothing"

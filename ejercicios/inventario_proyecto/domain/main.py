@@ -1,4 +1,4 @@
-from products import *
+from products import ClothingProduct
 from inventory import Inventory
 from store import Store
 from factories import CleaningProductFactory, ClothingProductFactory
@@ -6,14 +6,20 @@ from factories import CleaningProductFactory, ClothingProductFactory
 clothing_products = ClothingProductFactory()
 cleaning_products = CleaningProductFactory()
 
-Hats = clothing_products.create_product("Gorro", 10, 0.3, 25)
-print(Hats)
-Hats.add_stock(20)
-print(Hats)
-Hats.sell(12)
-print(Hats)
-Hats.sell(34)
-print(Hats)
+hats_xl = clothing_products.create_product("Gorro Supreme", 10, 0.3, 25, "xl      ")
+
+vacuum_cleaner = cleaning_products.create_product("Bosch Flexxo Serie 4", 120, 15, 100)
+vacuum_cleaner.add_stock(20)
+vacuum_cleaner.sell(12)
+
+my_store = Store()
+my_store.add_product(vacuum_cleaner)
+my_store.add_product(hats_xl)
+print(my_store.inventory)
+
+
+
+
 
 
 
